@@ -1,3 +1,19 @@
+### Issues
+
+- Issue 2398 - Preserve dependency paths containing commas when passing a single app to Run-AlPipeline. Download Project Dependencies now warns with the complete path if a resolved dependency file is missing, without changing the output lists.
+
+- Issue 2390 - AnalyzeTests no longer crashes under strict mode when a page scripting test suite contains both passed and failed tests, preserving the failure summary.
+
+- Issue 2387 - Deployment environment discovery now paginates GitHub API results, so Publish To Environment and CI/CD can discover environments beyond the first 30 and read their branch policies.
+
+## v10.0
+
+### AL-Go Telemetry Enhancements
+
+AL-Go now includes `RepositoryIsFork` and `GitHubHostingType` in Microsoft and partner telemetry. These identify whether the workflow repository is a fork and whether it runs on GitHub.com, GitHub Enterprise Cloud with data residency (`*.ghe.com`), or GitHub Enterprise Server. GitHub.com includes Enterprise Cloud customers hosted there; this classification does not identify subscription plans or send server hostnames. Unavailable metadata is reported as `Unknown`.
+
+Action telemetry now includes structured `ActionName` and `ActionConclusion` dimensions. The action wrapper reports `Success` or `Failure`, allowing consumers to group action outcomes without parsing message text. Handled error events do not independently mark the action as failed.
+
 ### Allow pre-release packages as NuGet dependencies
 
 AL-Go now supports including pre-release versions of Business Central app packages from NuGet feeds. To enable this, append `-allowPrerelease` to the `nuGetFeedSelectMode` setting in your project configuration. For example, `LatestMatching-allowPrerelease` will select the latest matching version of the package, including pre-release versions.
@@ -21,6 +37,7 @@ To retain the previous behavior, set `cacheImageName` to an empty string in .AL-
 
 ### Issues
 
+- Workflow finalization telemetry failures, including GitHub API errors, no longer fail an otherwise successful workflow.
 - Issue 2358 - Update AL-Go System Files no longer creates a commit or pull request when only the template SHA would change, avoiding unnecessary CI/CD runs.
 - Issue 2370 - Retry CI/CD baseline discovery when no eligible run is returned, logging result counts for diagnostics and URL-encoding query values so discovery URLs render correctly in logs. The existing full-build fallback is preserved when no baseline is found after retries.
 - Issue 2113 - Fix device-login initialization in Create Online Dev. Environment and Publish To Environment when authentication secrets are unavailable.
